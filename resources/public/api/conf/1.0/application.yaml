@@ -93,7 +93,7 @@ paths:
                       postcode: BN1 1AA
       deprecated: false
       security:
-        - userRestricted:
+        - User-Restricted:
             - read:customer-profile
   /customer-profile/profile/preferences:
     get:
@@ -134,7 +134,7 @@ paths:
                       status: verified
       deprecated: false
       security:
-        - userRestricted:
+        - User-Restricted:
             - read:customer-profile
   /customer-profile/apple-pass:
     get:
@@ -169,7 +169,7 @@ paths:
                     applePass: UEsDBBQACAgIABxqJlYAAAAAAAAAAAAAAAAIAAAAaWNvbi5wbmcBYjCdz4lQTkcNChoKAAAADUlIRFIAAAC0
       deprecated: false
       security:
-        - userRestricted:
+        - User-Restricted:
             - read:customer-profile
   /customer-profile/google-pass:
     get:
@@ -204,7 +204,7 @@ paths:
                     googlePass: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
       deprecated: false
       security:
-        - userRestricted:
+        - User-Restricted:
             - read:customer-profile
   /customer-profile/profile/preferences/paperless-settings/opt-in:
     post:
@@ -263,7 +263,7 @@ paths:
           content: {}
       deprecated: false
       security:
-        - userRestricted:
+        - User-Restricted:
             - read:customer-profile
   /customer-profile/profile/preferences/paperless-settings/opt-out:
     post:
@@ -320,7 +320,7 @@ paths:
           content: {}
       deprecated: false
       security:
-        - userRestricted:
+        - User-Restricted:
             - read:customer-profile
   /customer-profile/profile/preferences/pending-email:
     post:
@@ -357,7 +357,7 @@ paths:
           content: {}
       deprecated: false
       security:
-        - userRestricted:
+        - User-Restricted:
             - read:customer-profile
   /validate/pin/{enteredPin}:
     get:
@@ -422,7 +422,7 @@ paths:
 
       deprecated: false
       security:
-        - userRestricted:
+        - User-Restricted:
             - read:customer-profile
   /upsert:
     put:
@@ -444,11 +444,11 @@ paths:
           description: created/updated successfully
       deprecated: false
       security:
-        - userRestricted:
+        - User-Restricted:
             - read:customer-profile
 components:
   securitySchemes:
-    userRestricted:
+    User-Restricted:
       type: oauth2
       description: |
         HMRC supports OAuth 2.0 for authenticating user-restricted API requests using an OAuth 2.0 Bearer Token in the
