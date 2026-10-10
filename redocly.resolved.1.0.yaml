@@ -1,0 +1,768 @@
+openapi: 3.0.0
+info:
+  title: Customer Profile
+  description: |-
+    ### What is this API for?
+    The API is used to retrieve customer profile information.
+  contact: {}
+  version: '1.0'
+servers:
+  - url: https://test-api.service.hmrc.gov.uk/customer-profile
+    description: Sandbox
+  - url: https://api.service.hmrc.gov.uk/customer-profile
+    description: Production
+    variables: {}
+tags:
+  - name: customer-profile
+    description: ''
+paths:
+  /customer-profile/profile/personal-details/{nino}:
+    get:
+      tags:
+        - customer-profile
+      summary: Get personal details
+      description: This endpoint retrieves a user's designatory details
+      operationId: Getpersonaldetails
+      parameters:
+        - name: nino
+          in: path
+          description: The NINO for the individual.
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: NS123456B
+        - name: journeyId
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - title: CustomerProfileProfilePersonalDetailsresponse
+                    required: &ref_0
+                      - person
+                      - address
+                      - correspondenceAddress
+                    type: object
+                    properties: &ref_1
+                      person:
+                        title: Person
+                        required:
+                          - firstName
+                          - lastName
+                          - title
+                          - sex
+                          - personDateOfBirth
+                          - nino
+                          - fullName
+                          - nationalInsuranceLetterUrl
+                        type: object
+                        properties:
+                          firstName:
+                            type: string
+                          lastName:
+                            type: string
+                          title:
+                            type: string
+                          sex:
+                            type: string
+                          personDateOfBirth:
+                            type: integer
+                            format: int64
+                          nino:
+                            type: string
+                          fullName:
+                            type: string
+                          nationalInsuranceLetterUrl:
+                            type: string
+                        example:
+                          firstName: Jennifer
+                          lastName: Thorsteinson
+                          title: Ms
+                          sex: Female
+                          personDateOfBirth: '1999-01-31'
+                          nino: CS700100A
+                          fullName: Angus Smith
+                          nationalInsuranceLetterUrl: /personal-account/national-insurance-summary/save-letter-as-pdf
+                      address:
+                        title: Address
+                        required:
+                          - line1
+                          - line2
+                          - line3
+                          - postcode
+                          - changeAddressLink
+                        type: object
+                        properties:
+                          line1:
+                            type: string
+                          line2:
+                            type: string
+                          line3:
+                            type: string
+                          postcode:
+                            type: string
+                          changeAddressLink:
+                            type: string
+                        example:
+                          line1: 999 Big Street
+                          line2: Worthing
+                          line3: West Sussex
+                          postcode: BN99 8IG
+                          changeAddressLink: /personal-account/your-profile
+                    example: &ref_2
+                      person:
+                        firstName: Jennifer
+                        lastName: Thorsteinson
+                        title: Ms
+                        sex: Female
+                        personDateOfBirth: '1999-01-31'
+                        nino: CS700100A
+                        fullName: Angus Smith
+                        nationalInsuranceLetterUrl: /personal-account/national-insurance-summary/save-letter-as-pdf
+                      address:
+                        line1: 999 Big Street
+                        line2: Worthing
+                        line3: West Sussex
+                        postcode: BN99 8IG
+                        changeAddressLink: /personal-account/your-profile
+                      correspondenceAddress:
+                        line1: 1 Main Street
+                        line2: Brighton
+                        line3: East Sussex
+                        postcode: BN1 1AA
+                  - example:
+                      person:
+                        firstName: Jennifer
+                        lastName: Thorsteinson
+                        title: Ms
+                        sex: Female
+                        personDateOfBirth: '1999-01-31'
+                        nino: CS700100A
+                        fullName: Angus Smith
+                        nationalInsuranceLetterUrl: /personal-account/national-insurance-summary/save-letter-as-pdf
+                      address:
+                        line1: 999 Big Street
+                        line2: Worthing
+                        line3: West Sussex
+                        postcode: BN99 8IG
+                        changeAddressLink: /personal-account/your-profile
+                      correspondenceAddress:
+                        line1: 1 Main Street
+                        line2: Brighton
+                        line3: East Sussex
+                        postcode: BN1 1AA
+              examples:
+                example-1:
+                  value:
+                    person:
+                      firstName: Jennifer
+                      lastName: Thorsteinson
+                      title: Ms
+                      sex: Female
+                      personDateOfBirth: '1999-01-31'
+                      nino: CS700100A
+                      fullName: Angus Smith
+                      nationalInsuranceLetterUrl: /personal-account/national-insurance-summary/save-letter-as-pdf
+                    address:
+                      line1: 999 Big Street
+                      line2: Worthing
+                      line3: West Sussex
+                      postcode: BN99 8IG
+                      changeAddressLink: /personal-account/your-profile
+                    correspondenceAddress:
+                      line1: 1 Main Street
+                      line2: Brighton
+                      line3: East Sussex
+                      postcode: BN1 1AA
+      deprecated: false
+      security:
+        - userRestricted:
+            - read:customer-profile
+  /customer-profile/profile/preferences:
+    get:
+      tags:
+        - customer-profile
+      summary: Get preferences
+      description: This endpoint retrieves the preferences.
+      operationId: Getpreferences
+      parameters:
+        - name: journeyId
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - title: CustomerProfileProfilePreferencesresponse
+                    required: &ref_7
+                      - digital
+                      - emailAddress
+                      - status
+                    type: object
+                    properties: &ref_8
+                      digital:
+                        type: boolean
+                      emailAddress:
+                        type: string
+                      status:
+                        title: Status
+                        required:
+                          - status
+                        type: object
+                        properties:
+                          status:
+                            type: string
+                        example:
+                          status: verified
+                    example: &ref_9
+                      digital: true
+                      emailAddress: name@email.co.uk
+                      status:
+                        status: verified
+                  - example:
+                      digital: true
+                      emailAddress: name@email.co.uk
+                      status:
+                        status: verified
+              examples:
+                example-1:
+                  value:
+                    digital: true
+                    emailAddress: name@email.co.uk
+                    status:
+                      status: verified
+      deprecated: false
+      security:
+        - userRestricted:
+            - read:customer-profile
+  /customer-profile/apple-pass:
+    get:
+      tags:
+        - customer-profile
+      summary: Get apple pass
+      description: This endpoint retrieves the details needed to store a nino in a users apple wallet.
+      operationId: GetApplePass
+      parameters:
+        - name: journeyId
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - title: ApplePassResponse
+                    required:
+                      - applePass
+                    type: object
+                    properties:
+                      applePass:
+                        type: string
+                    example:
+                      applePass: UEsDBBQACAgIABxqJlYAAAAAAAAAAAAAAAAIAAAAaWNvbi5wbmcBYjCdz4lQTkcNChoKAAAADUlIRFIAAAC0
+                  - example:
+                      applePass: UEsDBBQACAgIABxqJlYAAAAAAAAAAAAAAAAIAAAAaWNvbi5wbmcBYjCdz4lQTkcNChoKAAAADUlIRFIAAAC0
+              examples:
+                example-1:
+                  value:
+                    applePass: UEsDBBQACAgIABxqJlYAAAAAAAAAAAAAAAAIAAAAaWNvbi5wbmcBYjCdz4lQTkcNChoKAAAADUlIRFIAAAC0
+      deprecated: false
+      security:
+        - userRestricted:
+            - read:customer-profile
+  /customer-profile/google-pass:
+    get:
+      tags:
+        - customer-profile
+      summary: Get google pass
+      description: This endpoint retrieves the details needed to store a nino in a users google wallet.
+      operationId: GetGooglePass
+      parameters:
+        - name: journeyId
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - title: GooglePassResponse
+                    required:
+                      - googlePass
+                    type: object
+                    properties:
+                      googlePass:
+                        type: string
+                    example:
+                      googlePass: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
+                  - example:
+                      googlePass: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
+              examples:
+                example-1:
+                  value:
+                    googlePass: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
+      deprecated: false
+      security:
+        - userRestricted:
+            - read:customer-profile
+  /customer-profile/profile/preferences/paperless-settings/opt-in:
+    post:
+      tags:
+        - customer-profile
+      summary: Opt in paperless preferences
+      description: This endpoint sets or updates the user's paperless opt-in preference settings.
+      operationId: Optinpaperlesspreferences
+      parameters:
+        - name: journeyId
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - title: CustomerProfileProfilePreferencesPaperlessSettingsOptInrequest
+                  required: &ref_3
+                    - generic
+                    - email
+                    - language
+                  type: object
+                  properties: &ref_4
+                    generic:
+                      title: Generic
+                      required: &ref_10
+                        - accepted
+                      type: object
+                      properties: &ref_11
+                        accepted:
+                          type: boolean
+                          description: If the user accepts Ts & Cs to opt-in to paperless communication.
+                        optInPage:
+                          allOf:
+                            - title: OptInPage
+                              type: object
+                              properties: &ref_14
+                                cohort:
+                                  type: number
+                                  description: Numerical identifier of sending system for digital contact use
+                                pageType:
+                                  type: string
+                                  description: 'Where the user has accepted these terms. Must be one of: AndroidOptInPage, IosOptInPage, AndroidOptOutPage, IosOptOutPage'
+                                version:
+                                  allOf:
+                                    - title: Version
+                                      type: object
+                                      properties:
+                                        major:
+                                          type: number
+                                          description: The major version number
+                                        minor:
+                                          type: number
+                                          description: The minor version number
+                                      description: The version of terms and conditions accepted
+                                    - description: The version of terms and conditions accepted
+                              description: Details of the terms and conditions accepted by the user
+                            - description: Details of the terms and conditions accepted by the user
+                    email:
+                      type: string
+                      description: The email to be used for paperless communication.
+                    language:
+                      type: string
+                      description: The language to be used for paperless communication.
+                  description: Enable paperless settings for a given email
+                - example:
+                    generic:
+                      accepted: true
+                      optInPage:
+                        cohort: 24
+                        pageType: AndroidOptInPage
+                        version:
+                          major: 1
+                          minor: 2
+                    email: test@example.com
+                    language: en
+            example:
+              generic:
+                accepted: true
+                optInPage:
+                  cohort: 24
+                  pageType: AndroidOptInPage
+                  version:
+                    major: 1
+                    minor: 2
+              email: test@example.com
+              language: en
+        required: true
+      responses:
+        '201':
+          description: ''
+          headers: {}
+          content: {}
+        '204':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+        - userRestricted:
+            - read:customer-profile
+  /customer-profile/profile/preferences/paperless-settings/opt-out:
+    post:
+      tags:
+        - customer-profile
+      summary: Opt out paperless preferences
+      description: This endpoint opts the user out of paperless.
+      operationId: Optoutpaperlesspreferences
+      parameters:
+        - name: journeyId
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - title: CustomerProfileProfilePreferencesPaperlessSettingsOptOutrequest
+                  required: &ref_5
+                    - generic
+                    - language
+                  type: object
+                  properties: &ref_6
+                    generic:
+                      title: Generic1
+                      required: &ref_12
+                        - accepted
+                      type: object
+                      properties: &ref_13
+                        accepted:
+                          type: boolean
+                          description: If the user accepts Ts & Cs to opt-in to paperless communication.
+                        optInPage:
+                          allOf:
+                            - title: OptInPage1
+                              type: object
+                              properties: &ref_15
+                                cohort:
+                                  type: number
+                                  description: Numerical identifier of sending system for digital contact use
+                                pageType:
+                                  type: string
+                                  description: 'Where the user has declined these terms. Must be one of: AndroidOptInPage, IosOptInPage, AndroidOptOutPage, IosOptOutPage'
+                                version:
+                                  allOf:
+                                    - title: Version1
+                                      type: object
+                                      properties:
+                                        major:
+                                          type: number
+                                          description: The major version number
+                                        minor:
+                                          type: number
+                                          description: The minor version number
+                                      description: The version of terms and conditions declined
+                                    - description: The version of terms and conditions declined
+                              description: Details of the terms and conditions declined by the user
+                            - description: Details of the terms and conditions declined by the user
+                    language:
+                      type: string
+                      description: The language to be used for paperless communication.
+                  description: Disable paperless settings for a given email
+                - example:
+                    generic:
+                      accepted: false
+                      optInPage:
+                        cohort: 24
+                        pageType: AndroidOptOutPage
+                        version:
+                          major: 1
+                          minor: 2
+                    language: en
+            example:
+              generic:
+                accepted: false
+                optInPage:
+                  cohort: 24
+                  pageType: AndroidOptOutPage
+                  version:
+                    major: 1
+                    minor: 2
+              language: en
+        required: true
+      responses:
+        '201':
+          description: ''
+          headers: {}
+          content: {}
+        '204':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+        - userRestricted:
+            - read:customer-profile
+  /customer-profile/profile/preferences/pending-email:
+    post:
+      tags:
+        - customer-profile
+      summary: Resend pending email
+      description: Triggers a resend of the verification email
+      operationId: Resendpendingemail
+      parameters:
+        - name: journeyId
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - title: CustomerProfileProfilePreferencesPendingEmailrequest
+                  required:
+                    - email
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      description: The pending email to resend a verification link for. This user must already have this preference set.
+                  description: The pending email to resend a verification link for
+                - example:
+                    email: EXAMPLE@TEST.com
+            example:
+              email: EXAMPLE@TEST.com
+        required: true
+      responses:
+        '204':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+        - userRestricted:
+            - read:customer-profile
+  /validate/pin/{enteredPin}:
+    get:
+      tags:
+        - mobile-pin
+      summary: Validate the PIN against DOB pattern and previously used PINs.
+      description: This endpoint validate the user entered PIN against DOB pattern and previously used PINs.
+      operationId: ValidatePin
+      parameters:
+        - name: enteredPin
+          in: path
+          description: PIN entered by the user.
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: 300685
+        - name: journeyId
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 27085215-69a4-4027-8f72-b04b10ec16b0
+        - name: deviceId
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 27085215-69a4-4027-8f72-b04b10ec16b0
+        - name: mode
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - createPin
+              - updatePin
+            example: createPin
+      responses:
+        '200':
+          description: Valid PIN response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Pin is Valid
+        '401':
+          description: PIN is invalid (either DOB match or previously used).
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      key:
+                        type: string
+                        example: create_pin_date_of_birth_error_message
+                      message:
+                        type: string
+                        example: PIN should not include your date of birth
+                  - type: object
+                    properties:
+                      key:
+                        type: string
+                        example: change_pin_disallow_previous_pins_error_message
+                      message:
+                        type: string
+                        example: Do not re-use an old PIN
+      deprecated: false
+      security:
+        - userRestricted:
+            - read:customer-profile
+  /upsert:
+    put:
+      tags:
+        - mobile-pin
+      summary: Insert or update the PIN.
+      operationId: UpsertPin
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - type: object
+                  properties:
+                    pin:
+                      type: string
+                      example: '300685'
+                    deviceId:
+                      type: string
+                      example: 27085215-69a4-4027-8f72-b04b10ec16b0
+      responses:
+        '201':
+          description: created/updated successfully
+        '400':
+          description: request body is malformed
+      deprecated: false
+      security:
+        - userRestricted:
+            - read:customer-profile
+components:
+  securitySchemes:
+    userRestricted:
+      type: oauth2
+      description: |
+        HMRC supports OAuth 2.0 for authenticating user-restricted API requests using an OAuth 2.0 Bearer Token in the
+        AUTHORIZATION header.
+        See https://developer.service.hmrc.gov.uk/api-documentation/docs/authorisation/user-restricted-endpoints for details.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.service.hmrc.gov.uk/oauth/authorize
+          tokenUrl: https://api.service.hmrc.gov.uk/oauth/token
+          refreshUrl: https://api.service.hmrc.gov.uk/oauth/refresh
+          scopes:
+            read:customer-profile: Retrieve the customer profile
+  schemas:
+    CustomerProfileProfilePersonalDetailsresponse:
+      title: CustomerProfileProfilePersonalDetailsresponse
+      required: *ref_0
+      type: object
+      properties: *ref_1
+      example: *ref_2
+    CustomerProfileProfilePreferencesPaperlessSettingsOptInrequest:
+      title: CustomerProfileProfilePreferencesPaperlessSettingsOptInrequest
+      required: *ref_3
+      type: object
+      properties: *ref_4
+      description: Enable paperless settings for a given email
+    CustomerProfileProfilePreferencesPaperlessSettingsOptOutrequest:
+      title: CustomerProfileProfilePreferencesPaperlessSettingsOptOutrequest
+      required: *ref_5
+      type: object
+      properties: *ref_6
+      description: Disable paperless settings for a given email
+    CustomerProfileProfilePreferencesresponse:
+      title: CustomerProfileProfilePreferencesresponse
+      required: *ref_7
+      type: object
+      properties: *ref_8
+      example: *ref_9
+    Generic:
+      title: Generic
+      required: *ref_10
+      type: object
+      properties: *ref_11
+    Generic1:
+      title: Generic1
+      required: *ref_12
+      type: object
+      properties: *ref_13
+    OptInPage:
+      title: OptInPage
+      type: object
+      properties: *ref_14
+      description: Details of the terms and conditions accepted by the user
+    OptInPage1:
+      title: OptInPage1
+      type: object
+      properties: *ref_15
+      description: Details of the terms and conditions declined by the user
