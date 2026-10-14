@@ -520,6 +520,31 @@ components:
         line3: West Sussex
         postcode: BN99 8IG
         changeAddressLink: /personal-account/your-profile
+    CorrespondenceAddress:
+      title: Address
+      required:
+        - line1
+        - line2
+        - line3
+        - postcode
+      type: object
+      properties:
+        line1:
+          type: string
+        line2:
+          type: string
+        line3:
+          type: string
+        postcode:
+          type: string
+        changeAddressLink:
+          type: string
+      example:
+        line1: 999 Big Street
+        line2: Worthing
+        line3: West Sussex
+        postcode: BN99 8IG
+        changeAddressLink: /personal-account/your-profile
     ValidateRequest:
       type: object
       properties:
@@ -541,6 +566,8 @@ components:
           $ref: '#/components/schemas/Person'
         address:
           $ref: '#/components/schemas/Address'
+        correspondenceAddress:
+          $ref: '#/components/schemas/CorrespondenceAddress'
       example:
         person:
           firstName: Jennifer
